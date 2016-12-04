@@ -1,6 +1,5 @@
 var path = require('path');
 
-
 module.exports = {
   entry: [
     'webpack/hot/dev-server',
