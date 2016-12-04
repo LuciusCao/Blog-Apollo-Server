@@ -7,4 +7,4 @@ const App = () => (
   </h1>
 );
 
-render(<App />, document.getElementById('app'))
+render(<App />, document.getElementById('app'));
