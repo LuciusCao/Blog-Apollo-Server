@@ -1,4 +1,4 @@
-// import { Author, View } from './connectors';
+import { Author, Post } from './connectors';
 
 const resolvers = {
   Query: {
