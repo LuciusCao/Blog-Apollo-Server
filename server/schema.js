@@ -5,12 +5,18 @@ type Author {
   lastName: String
   posts: [Post]
 }
+type Comment {
+  id: Int
+  content: String
+  author: Author
+}
 type Post {
   id: Int
   title: String
   content: String
   views: Int
   author: Author
+  comment: [Comment]
 }
 type Query {
   author(firstName: String, lastName: String): Author

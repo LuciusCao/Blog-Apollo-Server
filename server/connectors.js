@@ -17,6 +17,12 @@ const PostSchema = Mongoose.Schema({
 });
 const Post = Mongoose.model('posts', PostSchema);
 
+const CommentSchema = Mongoose.Schema({
+  content: String,
+  author: String,
+});
+const Comment = Mongoose.model('comments', CommentSchema);
+
 // create seed data
 Author.create({
   firstName: 'Lucius',
@@ -28,7 +34,13 @@ Post.create({
   title: 'a post by lulu',
   content: 'some content',
   views: 100,
-  author: 'Lucius'
+  author: 'Lucius Cao'
+  comment: ['this is a comment']
 });
 
-export { Author, Post };
+Comment.create({
+  content: 'this is a comment',
+  author: 'Lucius Cao'
+});
+
+export { Author, Post, Comment };
