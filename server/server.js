@@ -13,7 +13,7 @@ const graphQLServer = express();
 
 const executableSchema = makeExecutableSchema({
   typeDefs: Schema,
-  // resolvers: Resolvers,
+  resolvers: Resolvers,
   connectors: Connectors,
 });
 
