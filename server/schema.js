@@ -1,14 +1,18 @@
 const typeDefinitions = `
 type Author {
+  id: String
   firstName: String
   lastName: String
   posts: [Post]
 }
 type Comment {
+  id: String
   content: String
   author: Author
+  post: Post
 }
 type Post {
+  id: String
   title: String
   content: String
   views: Int
@@ -17,7 +21,6 @@ type Post {
 }
 type Query {
   author(firstName: String, lastName: String): Author
-  post(title: String, author: String): Post
 }
 schema {
   query: Query
