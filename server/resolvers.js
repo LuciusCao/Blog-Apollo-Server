@@ -21,20 +21,6 @@ const resolvers = {
       return Comment.find({ post: post.title }, (e, r) => {});
     },
   },
-  // Post: {
-  //   comments(post) {
-  //     console.log(post);
-  //     return Comment.find({ post: post.title }, (e, r) => {
-  //       console.log(r);
-  //     });
-  //   },
-  // },
-  // Comment: {
-  //   content(post) {
-  //     console.log(post)
-  //     return Comment.find({ article: post.title }, (e, r) => {});
-  //   }
-  // }
 };
 
 export default resolvers;
