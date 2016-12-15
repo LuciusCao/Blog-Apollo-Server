@@ -1,29 +1,28 @@
 import Mongoose from 'mongoose';
 import casual from 'casual';
 
-const mongo = Mongoose.connect('mongodb://localhost/blogs');
+Mongoose.connect('mongodb://localhost/blogs');
 
 const ObjectId = Mongoose.Schema.ObjectId
 
 const AuthorSchema = Mongoose.Schema({
-  firstName: String,
-  lastName: String,
+  username: String,
   email: {
     type: String,
-    unique: true,
+    unique: true
   },
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: new Date()
   },
   posts: [{
     type: ObjectId,
-    ref: 'posts',
+    ref: 'posts'
   }],
   comments: [{
     type: ObjectId,
-    ref: 'comments',
-  }],
+    ref: 'comments'
+  }]
 });
 const Author = Mongoose.model('authors', AuthorSchema);
 
@@ -32,48 +31,82 @@ const PostSchema = Mongoose.Schema({
   category: {
     type: String,
     enum: ['design', 'technology', 'others'],
-    lowercase: true,
+    lowercase: true
   },
   content: String,
   views: Number,
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: new Date()
   },
   published: {
     type: Boolean,
-    default: false,
+    default: false
   },
   author: {
     type: ObjectId,
-    ref: 'authors',
+    ref: 'authors'
   },
   comments: [{
     type: ObjectId,
-    ref: 'comments',
-  }],
+    ref: 'comments'
+  }]
 });
 const Post = Mongoose.model('posts', PostSchema);
 
 const CommentSchema = Mongoose.Schema({
   post: {
     type: ObjectId,
-    ref: 'posts',
+    ref: 'posts'
   },
   content: String,
   author: {
     type: ObjectId,
-    ref: 'authors',
+    ref: 'authors'
   },
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: new Date()
   },
+  commentOn: {
+    type: ObjectId,
+    ref: 'comments'
+  }
 });
 const Comment = Mongoose.model('comments', CommentSchema);
 
 // create seed data
 casual.seed(0);
+
+// const author1 = new Author({
+//   name: casual.name,
+//   email: casual.email,
+//   posts: [],
+//   comments: [],
+// });
+// author1.save((e) => {
+//   if (e) {
+//     throw e;
+//   } else {
+//     console.log('author1 created');
+//     const post1 = new Post({
+//       title: casual.title,
+//       category: 'design',
+//       content: casual.sentences(100),
+//       views: Math.floor(Math.random() * 100),
+//       author: author1._id,
+//       comments: [],
+//     });
+//     post1.save((e) => {
+//       if (e) {
+//         throw e;
+//       } else {
+//         console.log('post 1 created');
+//       };
+//     });
+//   };
+// });
+
 // Author.count({}, (e, r) => {
 //   if (e) {
 //     console.log('Error');

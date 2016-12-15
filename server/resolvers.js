@@ -1,26 +1,27 @@
-import { Author, Post, Comment } from './connectors';
-import _ from 'lodash';
+// import { Author, Post, Comment } from './connectors';
+import casual from 'casual';
 
 const resolvers = {
   Query: {
     author(root, args) {
-      return Author.findOne({ firstName: args.firstName, lastName: args.lastName })
+      return {
+        username: () => casual.username,
+        email: () => casual.email,
+        createdAt: new Date().toString()
+      };
     },
+    post(root, args) {
+      return {
+        title: () => casual.title,
+        category: 'design',
+        content: casual.sentences(10),
+        views: casual.integer(0,1000),
+        createdAt: new Date().toString(),
+        published: false
+      };
+    }
   },
-  Author: {
-    posts(author) {
-      return Post.find({ author: `${author.firstName} ${author.lastName}` }, (e, r) => {
-      });
-    },
-  },
-  Post: {
-    author(post) {
-      return Post.findOne({ title: post.title });
-    },
-    comments(post) {
-      return Comment.find({ post: post.title }, (e, r) => {});
-    },
-  },
+
 };
 
 export default resolvers;
