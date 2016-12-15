@@ -1,26 +1,53 @@
 import { Author, Post, Comment } from './connectors';
-import _ from 'lodash';
+import casual from 'casual';
 
 const resolvers = {
   Query: {
     author(root, args) {
-      return Author.findOne({ firstName: args.firstName, lastName: args.lastName })
+      return {
+        username: () => casual.username,
+        email: () => casual.email,
+        createdAt: new Date().toString()
+      };
     },
+    post(root, args) {
+      return {
+        title: () => casual.title,
+        category: 'design',
+        content: casual.sentences(10),
+        views: casual.integer(0,1000),
+        createdAt: new Date().toString(),
+        published: false
+      };
+    }
+  },
+  Mutation: {
+    createAuthor(root, args) {
+      return Author.create({
+        username: args.username,
+        email: args.email,
+        posts: [],
+        comments: []
+      });
+    }
   },
   Author: {
     posts(author) {
-      return Post.find({ author: `${author.firstName} ${author.lastName}` }, (e, r) => {
-      });
+      console.log(author);
+      return [
+        { title: 'this is a post' },
+        { title: 'this is another post' }
+      ];
     },
-  },
-  Post: {
-    author(post) {
-      return Post.findOne({ title: post.title });
-    },
-    comments(post) {
-      return Comment.find({ post: post.title }, (e, r) => {});
-    },
-  },
+    comments(author) {
+      console.log(author);
+      return [
+        { content: 'comment 1' },
+        { content: 'comment 2' },
+        { content: 'comment 3' }
+      ]
+    }
+  }
 };
 
 export default resolvers;

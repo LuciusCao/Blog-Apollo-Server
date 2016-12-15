@@ -44,7 +44,6 @@ const config = {
         test: /\.css?$/,
         loader: 'style!css'
       }]
-    ],
   },
 };
 
