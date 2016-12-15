@@ -1,4 +1,4 @@
-// import { Author, Post, Comment } from './connectors';
+import { Author, Post, Comment } from './connectors';
 import casual from 'casual';
 
 const resolvers = {
@@ -21,7 +21,33 @@ const resolvers = {
       };
     }
   },
-
+  Mutation: {
+    createAuthor(root, args) {
+      return Author.create({
+        username: args.username,
+        email: args.email,
+        posts: [],
+        comments: []
+      });
+    }
+  },
+  Author: {
+    posts(author) {
+      console.log(author);
+      return [
+        { title: 'this is a post' },
+        { title: 'this is another post' }
+      ];
+    },
+    comments(author) {
+      console.log(author);
+      return [
+        { content: 'comment 1' },
+        { content: 'comment 2' },
+        { content: 'comment 3' }
+      ]
+    }
+  }
 };
 
 export default resolvers;
