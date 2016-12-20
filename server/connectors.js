@@ -35,7 +35,10 @@ const PostSchema = Mongoose.Schema({
     lowercase: true
   },
   content: String,
-  views: Number,
+  views: {
+    type: Number,
+    default: 0
+  },
   createdAt: {
     type: Date,
     default: new Date()
