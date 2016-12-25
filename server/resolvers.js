@@ -4,6 +4,9 @@ import Mongoose from 'mongoose';
 const resolvers = {
   Query: {
     getCurrentAuthor(root, args) {
+      /*
+      get current author's information when login
+      */
       return Author.findOne({email: args.email}, (e, r) => {
         if (e) {
           throw new Error('getCurrentAuthor failed');
@@ -13,6 +16,10 @@ const resolvers = {
       });
     },
     getOneAuthor(root, args) {
+      /*
+      get one author's infomation by his email or username
+      only one parameter should be specified
+      */
       if (!args.email && !args.username) {
         throw new Error('getOneAuthor: You must specify either email or username');
       } else if (args.email && args.username) {
