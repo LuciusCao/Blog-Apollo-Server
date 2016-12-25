@@ -32,14 +32,33 @@ enum Category {
   others
 }
 type Query {
-  author(name: String): Author
-  post(category: Category): Post
+  getCurrentAuthor(
+    email: String!
+  ): Author
+  getOneAuthor(
+    email: String
+    username: String
+  ): Author
+  getAuthors(
+    username: String
+  ): [Author]
+  getPosts(
+    id: String
+    authorId: String
+    category: Category
+    limit: Int = 0
+  ): [Post]
 }
 type Mutation {
   createAuthor(
     username: String!
     email: String!
   ): Author
+  createPost(
+    title: String!
+    category: String!
+    content: String!
+  ): Post
 }
 schema {
   query: Query

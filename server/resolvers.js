@@ -1,24 +1,71 @@
 import { Author, Post, Comment } from './connectors';
-import casual from 'casual';
+import Mongoose from 'mongoose';
 
 const resolvers = {
   Query: {
-    author(root, args) {
-      return {
-        username: () => casual.username,
-        email: () => casual.email,
-        createdAt: new Date().toString()
-      };
+    getCurrentAuthor(root, args) {
+      /*
+      get current author's information when login
+      */
+      return Author.findOne({email: args.email}, (e, r) => {
+        if (e) {
+          throw new Error('getCurrentAuthor failed');
+        } else {
+          console.log('getCurrentAuthor succeeded');
+        }
+      });
     },
-    post(root, args) {
-      return {
-        title: () => casual.title,
-        category: 'design',
-        content: casual.sentences(10),
-        views: casual.integer(0,1000),
-        createdAt: new Date().toString(),
-        published: false
-      };
+    getOneAuthor(root, args) {
+      /*
+      get one author's infomation by his email or username
+      only one parameter should be specified
+      */
+      if (!args.email && !args.username) {
+        throw new Error('getOneAuthor: You must specify either email or username');
+      } else if (args.email && args.username) {
+        throw new Error('getOneAuthor: You can only specify either email or username');
+      } else if (args.email) {
+        return Author.findOne({email: args.email}, (e, r) => {
+          if (e) {
+            throw new Error('getOneAuthor failed with args.email');
+          } else {
+            console.log('getOneAuthor succeeded with args.emaal');
+          }
+        });
+      } else if (args.username) {
+        return Author.findOne({username: args.username}, (e, r) => {
+          if (e) {
+            throw new Error('getOneAuthor failed with args.username');
+          } else {
+            console.log('getOneAuthor succeeded with args.username');
+          }
+        });
+      }
+    },
+    getAuthors(root, args) {
+      if (args.username) {
+        return Author.find({username: args.username}, (e, r) => {
+          if (e) {
+            throw new Error('getAuthors failed with args.username');
+          } else {
+            console.log('getAuthors succeeded with args.username');
+          }
+        })
+      } else {
+        return Author.find({}, (e, r) => {
+          if (e) {
+            throw new Error('getAuthors failed with no args.username');
+          } else {
+            console.log('getAuthors succeeded with no args.username');
+          }
+        })
+      }
+    },
+    getPosts(root, args) {
+      if (args.id) {
+        return Post.
+          find({author: Mongoose.Types.ObjectId(args.id)})
+      }
     }
   },
   Mutation: {
@@ -33,19 +80,13 @@ const resolvers = {
   },
   Author: {
     posts(author) {
-      console.log(author);
-      return [
-        { title: 'this is a post' },
-        { title: 'this is another post' }
-      ];
-    },
-    comments(author) {
-      console.log(author);
-      return [
-        { content: 'comment 1' },
-        { content: 'comment 2' },
-        { content: 'comment 3' }
-      ]
+      return Post.find({author: Mongoose.Types.ObjectId(author.id)}, (e, r) => {
+        if (e) {
+          throw new Error('hmm');
+        } else {
+          console.log('ahahaha');
+        }
+      })
     }
   }
 };
