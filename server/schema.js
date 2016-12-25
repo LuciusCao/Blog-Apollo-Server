@@ -32,7 +32,22 @@ enum Category {
   others
 }
 type Query {
-  getCurrentAuthor(email: String): Author
+  getCurrentAuthor(
+    email: String!
+  ): Author
+  getOneAuthor(
+    email: String
+    username: String
+  ): Author
+  getAuthors(
+    username: String
+  ): [Author]
+  getPosts(
+    id: String
+    authorId: String
+    category: Category
+    limit: Int = 0
+  ): [Post]
 }
 type Mutation {
   createAuthor(
