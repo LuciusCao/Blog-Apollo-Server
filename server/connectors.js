@@ -9,6 +9,7 @@ const ObjectId = Mongoose.Schema.ObjectId
 const AuthorSchema = Mongoose.Schema({
   username: {
     type: String,
+    unique: true,
     required: true
   },
   email: {
