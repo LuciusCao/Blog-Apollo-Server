@@ -7,10 +7,14 @@ Mongoose.connect('mongodb://localhost/blogs');
 const ObjectId = Mongoose.Schema.ObjectId
 
 const AuthorSchema = Mongoose.Schema({
-  username: String,
+  username: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   createdAt: {
     type: Date,
@@ -28,13 +32,18 @@ const AuthorSchema = Mongoose.Schema({
 const Author = Mongoose.model('authors', AuthorSchema);
 
 const PostSchema = Mongoose.Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true
+  },
   category: {
     type: String,
     enum: ['design', 'technology', 'others'],
     lowercase: true
   },
-  content: String,
+  content: {
+    type: String
+  },
   views: {
     type: Number,
     default: 0
@@ -63,7 +72,10 @@ const CommentSchema = Mongoose.Schema({
     type: ObjectId,
     ref: 'posts'
   },
-  content: String,
+  content: {
+    type: String,
+    required: true
+  },
   author: {
     type: ObjectId,
     ref: 'authors'
