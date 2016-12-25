@@ -1,25 +1,18 @@
 import { Author, Post, Comment } from './connectors';
 import casual from 'casual';
+import Mongoose from 'mongoose';
 
 const resolvers = {
   Query: {
-    author(root, args) {
-      return {
-        username: () => casual.username,
-        email: () => casual.email,
-        createdAt: new Date().toString()
-      };
+    getCurrentAuthor(root, args) {
+      return Author.findOne({email: args.email}, (e, r) => {
+        if (e) {
+          throw new Error('getCurrentAuthor failed');
+        } else {
+          console.log('getCurrentAuthor failed');
+        }
+      });
     },
-    post(root, args) {
-      return {
-        title: () => casual.title,
-        category: 'design',
-        content: casual.sentences(10),
-        views: casual.integer(0,1000),
-        createdAt: new Date().toString(),
-        published: false
-      };
-    }
   },
   Mutation: {
     createAuthor(root, args) {
@@ -33,19 +26,13 @@ const resolvers = {
   },
   Author: {
     posts(author) {
-      console.log(author);
-      return [
-        { title: 'this is a post' },
-        { title: 'this is another post' }
-      ];
-    },
-    comments(author) {
-      console.log(author);
-      return [
-        { content: 'comment 1' },
-        { content: 'comment 2' },
-        { content: 'comment 3' }
-      ]
+      return Post.find({author: Mongoose.Types.ObjectId(author.id)}, (e, r) => {
+        if (e) {
+          throw new Error('hmm');
+        } else {
+          console.log('ahahaha');
+        }
+      })
     }
   }
 };
