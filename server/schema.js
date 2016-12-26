@@ -57,8 +57,9 @@ type Mutation {
     email: String!
   ): Author
   createPost(
+    authorId: String!
     title: String!
-    category: String!
+    category: Category
     content: String!
   ): Post
 }
