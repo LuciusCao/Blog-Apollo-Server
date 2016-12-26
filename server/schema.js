@@ -42,8 +42,10 @@ type Query {
   getAuthors(
     username: String
   ): [Author]
+  getOnePost(
+    id: String!
+  ): Post
   getPosts(
-    id: String
     authorId: String
     category: Category
     limit: Int = 0
