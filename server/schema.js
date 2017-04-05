@@ -1,6 +1,6 @@
 const typeDefinitions = `
 type Author {
-  id: String
+  id: ID
   username: String
   email: String
   createdAt: String
@@ -10,7 +10,7 @@ type Author {
 }
 
 type Comment {
-  id: String
+  id: ID
   content: String
   author: Author
   post: Post
@@ -20,7 +20,7 @@ type Comment {
 }
 
 type Post {
-  id: String
+  id: ID
   title: String
   category: Category
   description: String
@@ -36,7 +36,7 @@ type Post {
 }
 
 type Tag {
-  id: String
+  id: ID
   content: String
 }
 

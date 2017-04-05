@@ -1,7 +1,7 @@
 import express from 'express';
 import Schema from './schema.js';
 import Resolvers from './resolvers.js';
-// import Connectors from './connectors.js';
+import Connectors from './connectors.js';
 import Mocks from './mocks.js'
 
 import { apolloExpress, graphiqlExpress } from 'apollo-server';
