@@ -48,39 +48,12 @@ enum Category {
 
 type Query {
   getPostsByCategory(
-    input: CategoryInput
+    category: String
   ): [Post]
 }
 
-input CategoryInput {
-  category: String
-}
-
-input AuthorCreationInput {
-  username: String!
-  email: String!
-  password: String!
-}
-
-input CommentInput {
-  content: String!
-}
-
-input LikeInput {
-  id: String!
-}
-
-type Mutation {
-  createAuthor(
-    input: AuthorCreationInput
-  ): Author
-  like(
-    input: LikeInput
-  )
-}
 schema {
   query: Query
-  mutation: Mutation
 }
 `;
 
