@@ -63,7 +63,7 @@ const resolvers = {
     },
     getOnePost(root, args) {
       /*
-      get one post's information via id. args.id is required
+      get one post's information via author id. args.id is required
       */
       return Post.findOne({_id: Mongoose.Types.ObjectId(args.id)}, (e, r) => {
         if (e) {
