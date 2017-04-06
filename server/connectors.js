@@ -6,12 +6,20 @@ const Schema = Mongoose.Schema;
 const mongo = Mongoose.connect('mongodb://localhost/blog');
 
 const authorSchema = new Schema({
-  username: String,
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
   password: {
     type: String,
     required: true
   },
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
