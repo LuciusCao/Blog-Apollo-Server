@@ -1,5 +1,5 @@
-// import { Author, Post, Comment } from './connectors';
-// import Mongoose from 'mongoose';
+import { Author, Post, Comment, Tag } from './connectors';
+import Mongoose from 'mongoose';
 
 const resolvers = {
 

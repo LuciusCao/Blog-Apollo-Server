@@ -7,6 +7,10 @@ const mongo = Mongoose.connect('mongodb://localhost/blog');
 
 const authorSchema = new Schema({
   username: String,
+  password: {
+    type: String,
+    required: true
+  },
   email: String,
   createdAt: {
     type: Date,
@@ -25,6 +29,7 @@ const commentSchema = new Schema({
   content: {
     type: String,
     trim: true,
+    required: true
   },
   author: Schema.Types.ObjectId,
   post: Schema.Types.ObjectId,
@@ -48,10 +53,19 @@ const postSchema = new Schema({
   },
   content: {
     type: String,
-    trim: true
+    trim: true,
+    required: true
   },
-  views: Number,
-  likes: Number,
+  views: {
+    type: Number,
+    default: 0,
+    required: true
+  },
+  likes: {
+    type: Number,
+    default: 0,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -62,7 +76,8 @@ const postSchema = new Schema({
   },
   published: {
     type: Boolean,
-    default: false
+    default: false,
+    required: true
   },
   author: Schema.Types.ObjectId,
   tags: [Schema.Types.ObjectId],
@@ -71,7 +86,10 @@ const postSchema = new Schema({
 const Post = Mongoose.model('Post', postSchema);
 
 const tagSchema = new Schema({
-  content: String
+  content: {
+    type: String,
+    required: true,
+  }
 });
 const Tag = Mongoose.model('Tag', tagSchema);
 
