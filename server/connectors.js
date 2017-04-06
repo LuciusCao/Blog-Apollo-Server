@@ -1,22 +1,12 @@
-import rethinkdbdash from 'rethinkdbdash';
+import Mongoose from 'Mongoose';
 import casual from 'casual';
 import _ from 'lodash';
 
-const r = rethinkdbdash();
+const Schema = Mongoose.Schema;
+const mongo = Mongoose.connect('mongodb://localhost/blog');
 
-const tables = [
-  {db: 'blog', table: 'authors'},
-  {db: 'blog', table: 'posts'},
-  {db: 'blog', table: 'comments'},
-  {db: 'blog', table: 'tags'}
-]
-
-function creatTable(db, table) {
-    r.db(db).tableCreate(table).run()
-      .then(() => console.log(`table: ${table} created on db: ${db}`))
-      .catch(() => console.log(`table: ${table} existed on db: ${db}`))
-}
-
-_.forEach(tables, data => creatTable(data.db, data.table));
+const authorSchema = new Schema({
+  
+});
 
 // export default r
